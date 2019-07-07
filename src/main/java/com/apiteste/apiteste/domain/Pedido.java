@@ -1,12 +1,19 @@
 package com.apiteste.apiteste.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import javax.persistence.Entity;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 @Entity
+@Table(name = "PCPEDC")
 public class Pedido implements Serializable{
 
 	private static final long serialVersionUID = 1L;
@@ -17,6 +24,10 @@ public class Pedido implements Serializable{
 	private Date dtinicialsep;
 	private String posicao;
 	
+	@JsonManagedReference
+	@OneToMany(mappedBy = "pedido")
+	private List<ItensPedido> itens = new ArrayList();
+		
 	public Pedido() {
 		
 	}
@@ -62,6 +73,14 @@ public class Pedido implements Serializable{
 		this.posicao = posicao;
 	}
 
+	
+	public List<ItensPedido> getItens() {
+		return itens;
+	}
+	
+	public void setItens(List<ItensPedido> itens) {
+		this.itens = itens;
+	}
 
 
 	@Override

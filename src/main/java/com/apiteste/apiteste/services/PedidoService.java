@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.apiteste.apiteste.repositories.PedidoRepository;
-
+import com.apiteste.apiteste.services.exceptions.ObjectNotFoundException;
 import com.apiteste.apiteste.domain.Pedido;
 @Service
 public class PedidoService {
@@ -16,7 +16,7 @@ public class PedidoService {
 	
 	public Pedido findById(Integer numped) {
 		Optional<Pedido> pedido = pedidoRepository.findById(numped);
-		return pedido.orElse(null);
+		return pedido.orElseThrow(() -> new ObjectNotFoundException("Numero de Pedido Invalido!  numped" + numped));
 	}
 	
 
